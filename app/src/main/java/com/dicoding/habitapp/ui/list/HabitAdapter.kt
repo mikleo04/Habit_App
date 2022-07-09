@@ -18,14 +18,12 @@ class HabitAdapter(
 
     //TODO 8 : Create and initialize ViewHolder
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): HabitViewHolder {
-        val view = LayoutInflater.from(parent.context).inflate(R.layout.habit_item, parent, false) as View
-        return HabitViewHolder(view)
+        return HabitViewHolder(LayoutInflater.from(parent.context).inflate(R.layout.habit_item, parent, false) as View)
     }
 
     override fun onBindViewHolder(holder: HabitViewHolder, position: Int) {
         //TODO 9 : Get data and bind them to ViewHolder
-        val habitData = getItem(position) as Habit
-        holder.bind(habitData)
+        holder.bind(getItem(position) as Habit)
     }
 
     inner class HabitViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {

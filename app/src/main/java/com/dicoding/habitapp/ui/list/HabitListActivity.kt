@@ -42,28 +42,24 @@ class HabitListActivity : AppCompatActivity() {
 
         //TODO 6 : Initiate RecyclerView with LayoutManager
         recycler = findViewById(R.id.rv_habit)
-        val layoutManager = GridLayoutManager(this, 2)
-        recycler.layoutManager = layoutManager
+        recycler.layoutManager = GridLayoutManager(this, 2)
 
         initAction()
 
         val factory = ViewModelFactory.getInstance(this)
         viewModel = ViewModelProvider(this, factory).get(HabitListViewModel::class.java)
-        viewModel.habits.observe(this){
-            showTheRecycler(it)
-        }
 
         viewModel.snackbarText.observe(this){
             showSnackBar(it)
         }
         //TODO 7 : Submit pagedList to adapter and add intent to detail
+        viewModel.habits.observe(this){
+            val adapter = HabitAdapter(::onClickHandler)
+            adapter.submitList(it)
+            recycler.adapter = adapter
+        }
     }
-
-    private fun showTheRecycler(habits: PagedList<Habit>){
-        val adapter = HabitAdapter(::onClickHandler)
-        adapter.submitList(habits)
-        recycler.adapter = adapter
-    }
+    
     private fun onClickHandler(habit: Habit){
         val intent = Intent(this, DetailHabitActivity::class.java)
         intent.putExtra(HABIT_ID, habit.id)
