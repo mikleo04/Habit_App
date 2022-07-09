@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_gravity="center"
+    android:layout_margin="32dp"
+    android:orientation="vertical"
+    app:cardCornerRadius="10dp"
+    app:cardElevation="10dp">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <TextView
+            android:id="@+id/pager_tv_title"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:textAppearance="@style/TextAppearance.MaterialComponents.Subtitle1"
+            android:layout_margin="16dp"
+            android:textSize="36sp"
+            android:gravity="center"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            tools:text="Washing Motorbike" />
+
+        <TextView
+            android:id="@+id/pager_tv_start_time"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="@style/TextAppearance.MaterialComponents.Subtitle2"
+            android:layout_marginTop="16dp"
+            android:textSize="30sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/pager_tv_title"
+            tools:text="08:00" />
+
+        <ImageView
+            android:id="@+id/item_priority_level"
+            android:layout_width="150dp"
+            android:layout_height="150dp"
+            android:layout_marginTop="16dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/pager_tv_start_time"
+            app:srcCompat="@drawable/ic_priority_high" />
+
+        <TextView
+            android:id="@+id/pager_tv_minutes"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="36sp"
+            android:textColor="@color/white"
+            android:textStyle="bold"
+            app:layout_constraintStart_toStartOf="@+id/item_priority_level"
+            app:layout_constraintEnd_toEndOf="@+id/item_priority_level"
+            app:layout_constraintTop_toBottomOf="@+id/item_priority_level"
+            app:layout_constraintBottom_toTopOf="@+id/pager_minutes"
+            tools:text="45" />
+
+        <TextView
+            android:id="@+id/pager_minutes"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/minutes"
+            android:textAppearance="@style/TextAppearance.MaterialComponents.Subtitle2"
+            android:textSize="18sp"
+            android:textColor="@color/white"
+            app:layout_constraintStart_toStartOf="@+id/item_priority_level"
+            app:layout_constraintTop_toBottomOf="@+id/pager_tv_minutes"
+            app:layout_constraintBottom_toTopOf="@+id/item_priority_level"
+            app:layout_constraintEnd_toEndOf="@+id/item_priority_level" />
+
+        <Button
+            android:id="@+id/btn_open_count_down"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="32dp"
+            android:text="@string/open_count_down"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/item_priority_level"
+            app:layout_constraintEnd_toEndOf="parent" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</com.google.android.material.card.MaterialCardView>
