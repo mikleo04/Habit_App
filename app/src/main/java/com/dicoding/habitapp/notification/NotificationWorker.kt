@@ -37,16 +37,11 @@ class NotificationWorker(ctx: Context, params: WorkerParameters) : Worker(ctx, p
             CoroutineScope(Dispatchers.Main).launch {
                 habit.observeForever {
                     if (it != null){
-                        Log.d("TAG", "doWork: $it")
                         notificationCreated(it)
-                    }else{
-                        Log.d("TAG", "doWork: Null habit")
                     }
                 }
             }
 
-        }else{
-            Log.d("TAG", "doWork: Notification Is Off")
         }
 
         return Result.success()
@@ -58,29 +53,24 @@ class NotificationWorker(ctx: Context, params: WorkerParameters) : Worker(ctx, p
         }
         return TaskStackBuilder.create(applicationContext).run {
             addNextIntentWithParentStack(intent)
-            getPendingIntent(0, PendingIntent.FLAG_UPDATE_CURRENT)
+            getPendingIntent(0, PendingIntent.FLAG_IMMUTABLE or PendingIntent.FLAG_UPDATE_CURRENT)
         }
     }
 
     private fun notificationCreated(habit: Habit) {
-        val notifChannelId = "notification_channel_id"
-        val channelName = applicationContext.getString(R.string.notify_channel_name)
-        val notifySetText = applicationContext.getString(R.string.notify_content)
-        val pendingIntent = pendingIntent(habit)
         val notificationManager = applicationContext.getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
-
-
-        val mBuilder = NotificationCompat.Builder(applicationContext, notifChannelId)
+        
+        val mBuilder = NotificationCompat.Builder(applicationContext, "myNotification")
             .setSmallIcon(R.drawable.ic_notifications)
             .setContentTitle(habitTitle)
-            .setContentText(notifySetText)
-            .setContentIntent(pendingIntent)
+            .setContentText(applicationContext.getString(R.string.notify_content))
+            .setContentIntent(pendingIntent(habit))
 
         val notification = mBuilder.build()
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            val channel = NotificationChannel(notifChannelId, channelName, NotificationManager.IMPORTANCE_DEFAULT)
-            channel.description = channelName
-            mBuilder.setChannelId(notifChannelId)
+            val channel = NotificationChannel("myNotification", applicationContext.getString(R.string.notify_channel_name), NotificationManager.IMPORTANCE_DEFAULT)
+            mBuilder.setChannelId("myNotification")
+            channel.description = applicationContext.getString(R.string.notify_channel_name)
             notificationManager.createNotificationChannel(channel)
         }
         notificationManager.notify(123, notification)

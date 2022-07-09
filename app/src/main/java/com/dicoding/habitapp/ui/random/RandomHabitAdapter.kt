@@ -43,32 +43,20 @@ class RandomHabitAdapter(
     inner class PagerViewHolder internal constructor(itemView: View) :
         RecyclerView.ViewHolder(itemView) {
         //TODO 14 : Create view and bind data to item view
-        private lateinit var tvTitle: TextView
-        private lateinit var tvStartTime: TextView
-        private lateinit var iv_priority_level: ImageView
-        private lateinit var tvMinutes: TextView
-        private lateinit var btnOpenCountDown: Button
-
-
         fun bind(pageType: PageType, pageData: Habit) {
-            tvTitle = itemView.findViewById(R.id.pager_tv_title)
-            tvStartTime = itemView.findViewById(R.id.pager_tv_start_time)
-            tvMinutes = itemView.findViewById(R.id.pager_tv_minutes)
-            iv_priority_level = itemView.findViewById(R.id.item_priority_level)
-            btnOpenCountDown = itemView.findViewById(R.id.btn_open_count_down)
-
             pageData.apply {
-                tvTitle.text = title
-                tvMinutes.text = minutesFocus.toString()
-                tvStartTime.text = startTime
-
-                val setIcon = when(pageType){
-                    PageType.HIGH -> { AppCompatResources.getDrawable(itemView.context, R.drawable.ic_priority_high)}
-                    PageType.MEDIUM -> { AppCompatResources.getDrawable(itemView.context, R.drawable.ic_priority_medium)}
-                    PageType.LOW -> { AppCompatResources.getDrawable(itemView.context, R.drawable.ic_priority_low)}
-                }
-                iv_priority_level.setImageDrawable( setIcon )
-                btnOpenCountDown.setOnClickListener { onClick(this) }
+                (itemView.findViewById(R.id.pager_tv_title) as TextView).text = title
+                (itemView.findViewById(R.id.pager_tv_minutes) as TextView).text = minutesFocus.toString()
+                (itemView.findViewById(R.id.pager_tv_start_time) as TextView).text = startTime
+                
+                val icn = if(pageType == PageType.HIGH)
+                    AppCompatResources.getDrawable(itemView.context, R.drawable.ic_priority_high)
+                else if(pageType == PageType.MEDIUM)
+                    AppCompatResources.getDrawable(itemView.context, R.drawable.ic_priority_medium)
+                else
+                    AppCompatResources.getDrawable(itemView.context, R.drawable.ic_priority_low)
+                (itemView.findViewById(R.id.item_priority_level) as ImageView).setImageDrawable( icn )
+                (itemView.findViewById(R.id.btn_open_count_down) as Button).setOnClickListener { onClick(this) }
             }
         }
     }

@@ -17,11 +17,11 @@ import org.junit.runner.RunWith
 @RunWith(AndroidJUnit4ClassRunner::class)
 class HabitActivityTest {
     @Before
-    fun default(){
+    fun before(){
         ActivityScenario.launch(HabitListActivity::class.java)
     }
     @Test
-    fun assertThatAddHabitActivityLaunchedWhenFabClicked() {
+    fun testAddHabitActivityWhenFabBtnTapped() {
         Intents.init()
         Espresso.onView(ViewMatchers.withId(R.id.fab)).perform(ViewActions.click())
         Intents.intended(IntentMatchers.hasComponent(AddHabitActivity::class.java.name))
